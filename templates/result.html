@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analysis</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .score {
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 55px;
+            font-weight: bold;
+            margin: 15px;
+        }
+
+        .summary {
+            color: #555;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .skills {
+            margin-top: 15px;
+        }
+
+        .skill {
+            display: inline-block;
+            background: #eeeeee;
+            padding: 8px 14px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .suggestion {
+            padding: 7px 0;
+            color: #555;
+        }
+
+        .button-area {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        button,
+        .back-button {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .score-number {
+                font-size: 45px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🤖 Resume Analysis</h1>
+
+        <p>
+            Your resume analysis is complete.
+        </p>
+
+    </div>
+
+
+    <!-- SCORE -->
+
+    <div class="card score">
+
+        <h2>📊 Match Score</h2>
+
+        <div class="score-number">
+            {{ match_score }}%
+        </div>
+
+        <p class="summary">
+            {{ summary }}
+        </p>
+
+    </div>
+
+
+    <!-- MATCHED SKILLS -->
+
+    <div class="card">
+
+        <h2>✅ Matched Skills</h2>
+
+        {% if matched_skills %}
+
+            <div class="skills">
+
+                {% for skill in matched_skills %}
+
+                    <span class="skill">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>No matching skills found.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- MISSING SKILLS -->
+
+    <div class="card">
+
+        <h2>❌ Missing Skills</h2>
+
+        {% if missing_skills %}
+
+            <div class="skills">
+
+                {% for skill in missing_skills %}
+
+                    <span class="skill">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                No missing skills detected! 🎉
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- SUGGESTIONS -->
+
+    <div class="card">
+
+        <h2>💡 Improvement Suggestions</h2>
+
+        {% if suggestions %}
+
+            {% for suggestion in suggestions %}
+
+                <p class="suggestion">
+                    🔹 {{ suggestion }}
+                </p>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                Your resume matches the job requirements very well! 🎉
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="button-area">
+
+        <form action="/download"
+              method="POST"
+              style="display:inline;">
+
+            <input
+                type="hidden"
+                name="match_score"
+                value="{{ match_score }}">
+
+            <input
+                type="hidden"
+                name="matched"
+                value="{{ matched_skills|join(', ') }}">
+
+            <input
+                type="hidden"
+                name="missing"
+                value="{{ missing_skills|join(', ') }}">
+
+            <button type="submit">
+                📥 Download Report
+            </button>
+
+        </form>
+
+
+        <a href="/" class="back-button">
+            ← Analyze Another Resume
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Match Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="hero">
+
+        <div class="icon">🤖</div>
+
+        <h1>AI Resume Match Analyzer</h1>
+
+        <p>
+            Analyze your resume against a job description
+            and discover your skill match.
+        </p>
+
+    </div>
+
+
+    <form action="/analyze"
+          method="POST"
+          enctype="multipart/form-data">
+
+
+        <div class="card">
+
+            <h2>📄 Upload Resume</h2>
+
+            <p>Upload your resume in PDF format.</p>
+
+            <input
+                type="file"
+                name="resume"
+                accept=".pdf"
+                required>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>💼 Job Description</h2>
+
+            <p>
+                Paste the job description below.
+            </p>
+
+            <textarea
+                name="job_description"
+                placeholder="Example: We are looking for a Python developer with Flask, SQL and JavaScript skills..."
+                required></textarea>
+
+        </div>
+
+
+        <button type="submit">
+            🔍 Analyze My Resume
+        </button>
+
+    </form>
+
+
+    <div class="footer">
+
+        <p>
+            Built with Python & Flask 🚀
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
